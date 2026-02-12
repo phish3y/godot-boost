@@ -1,7 +1,8 @@
-[gd_scene format=3 uid="uid://bhyqpurxml4r2"]
+[gd_scene format=3 uid="uid://cr1yal5ieeusc"]
 
 [ext_resource type="Script" uid="uid://bad5pbdbxlm8k" path="res://level/landing_pad.gd" id="1_klklu"]
 [ext_resource type="PackedScene" uid="uid://c1hdd8tqhyrwy" path="res://player.tscn" id="2_2loia"]
+[ext_resource type="PackedScene" uid="uid://b76bntwbye81r" path="res://moving_hazard.tscn" id="3_2loia"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5xgho"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -24,12 +25,6 @@ albedo_color = Color(0, 0.44901496, 0.90052617, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vonw3"]
 albedo_color = Color(0.2111094, 0.48793817, 5.7756904e-07, 1)
-
-[sub_resource type="BoxMesh" id="BoxMesh_klklu"]
-size = Vector3(3, 3, 3)
-
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_2loia"]
-points = PackedVector3Array(-1.5, -1.4997059, -1.4997059, 1.5, 1.4997756, 1.4997756, 1.5, -1.4997756, 1.4997756, 1.5, 1.4997756, -1.4997756, -1.5, 1.4997059, 1.4997059, 1.5, -1.4997756, -1.4997756, -1.5, -1.4997059, 1.4997059, -1.5, 1.4997059, -1.4997059)
 
 [node name="Level" type="Node3D" unique_id=311782221]
 
@@ -66,12 +61,6 @@ transform = Transform3D(1, 0, 0, 0, 0.9781476, 0.2079117, 0, -0.2079117, 0.97814
 [node name="Player" parent="." unique_id=123204786 instance=ExtResource("2_2loia")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 1.25, 0)
 
-[node name="AnimatableBody3D" type="AnimatableBody3D" parent="." unique_id=1693324381]
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="AnimatableBody3D" unique_id=1812309817]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
-mesh = SubResource("BoxMesh_klklu")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="AnimatableBody3D" unique_id=530361675]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
-shape = SubResource("ConvexPolygonShape3D_2loia")
+[node name="MovingHazard" parent="." unique_id=187869929 groups=["hazard"] instance=ExtResource("3_2loia")]
+destination = Vector3(0, 5, 0)
+duration = 2.0

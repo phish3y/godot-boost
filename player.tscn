@@ -1,6 +1,10 @@
 [gd_scene format=3 uid="uid://c1hdd8tqhyrwy"]
 
 [ext_resource type="Script" uid="uid://bav77srm5dud0" path="res://player.gd" id="1_4flbx"]
+[ext_resource type="AudioStream" uid="uid://dxk7i200ujbn8" path="res://audio/lose.ogg" id="2_onrkg"]
+[ext_resource type="AudioStream" uid="uid://erknm71c54xp" path="res://audio/win.ogg" id="3_i3pqv"]
+[ext_resource type="AudioStream" uid="uid://c0ygdl7rc0en" path="res://audio/engine.ogg" id="4_hqtel"]
+[ext_resource type="PackedScene" uid="uid://ux6ivcx1ovdp" path="res://booster_particles.tscn" id="4_sweqy"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_hqtel"]
 
@@ -21,5 +25,23 @@ mesh = SubResource("CylinderMesh_hqtel")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1421112006]
 shape = SubResource("CylinderShape3D_4flbx")
+
+[node name="LoseAudio" type="AudioStreamPlayer" parent="." unique_id=1844048902]
+stream = ExtResource("2_onrkg")
+
+[node name="WinAudio" type="AudioStreamPlayer" parent="." unique_id=867336898]
+stream = ExtResource("3_i3pqv")
+
+[node name="RocketAudio" type="AudioStreamPlayer3D" parent="." unique_id=1848505081]
+stream = ExtResource("4_hqtel")
+
+[node name="BoosterParticles" parent="." unique_id=618801013 instance=ExtResource("4_sweqy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="BoosterParticlesLeft" parent="." unique_id=186957661 instance=ExtResource("4_sweqy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, -1, 0)
+
+[node name="BoosterParticlesRight" parent="." unique_id=1805451227 instance=ExtResource("4_sweqy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, -1, 0)
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
