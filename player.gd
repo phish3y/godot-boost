@@ -6,6 +6,8 @@ extends RigidBody3D
 ## How much torque to apply when turning
 @export var torque_thrust: float = 100
 
+var is_transitioning: bool = false
+
 func _process(delta: float) -> void:
 	if Input.is_action_pressed("boost"): # "boost" defined in input map
 		apply_central_force(basis.y  * delta * thrust)
@@ -16,6 +18,9 @@ func _process(delta: float) -> void:
 		apply_torque(Vector3(0.0, 0.0, -torque_thrust) * delta)
 
 func _on_body_entered(body: Node) -> void:
+	if is_transitioning:
+		return
+	
 	if "goal" in body.get_groups() && body is LandingPad:
 		complete_level(body.file_path)
 		
@@ -23,7 +28,17 @@ func _on_body_entered(body: Node) -> void:
 		crash_sequence()
 
 func complete_level(next_level_file: String) -> void:
-	get_tree().change_scene_to_file(next_level_file)
+	is_transitioning = true
+	set_process(false)
+	
+	var tween = create_tween()
+	tween.tween_interval(1.0)
+	tween.tween_callback(get_tree().change_scene_to_file.bind(next_level_file))
 	
 func crash_sequence() -> void:
-	get_tree().reload_current_scene()
+	is_transitioning = true
+	set_process(false)
+	
+	var tween = create_tween()
+	tween.tween_interval(1.0)
+	tween.tween_callback(get_tree().reload_current_scene)
