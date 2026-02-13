@@ -4,7 +4,9 @@
 [ext_resource type="AudioStream" uid="uid://dxk7i200ujbn8" path="res://audio/lose.ogg" id="2_onrkg"]
 [ext_resource type="AudioStream" uid="uid://erknm71c54xp" path="res://audio/win.ogg" id="3_i3pqv"]
 [ext_resource type="AudioStream" uid="uid://c0ygdl7rc0en" path="res://audio/engine.ogg" id="4_hqtel"]
-[ext_resource type="PackedScene" uid="uid://ux6ivcx1ovdp" path="res://booster_particles.tscn" id="4_sweqy"]
+[ext_resource type="PackedScene" uid="uid://ux6ivcx1ovdp" path="res://particles/booster_particles.tscn" id="4_sweqy"]
+[ext_resource type="PackedScene" uid="uid://dcecb8hw7dbrv" path="res://particles/lose_particles.tscn" id="6_2hs0m"]
+[ext_resource type="PackedScene" uid="uid://jfwajmrh6ca7" path="res://particles/win_particles.tscn" id="7_1jxqw"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_hqtel"]
 
@@ -43,5 +45,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.4, -1, 0)
 
 [node name="BoosterParticlesRight" parent="." unique_id=1805451227 instance=ExtResource("4_sweqy")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4, -1, 0)
+
+[node name="LoseParticles" parent="." unique_id=718765622 instance=ExtResource("6_2hs0m")]
+
+[node name="WinParticles" parent="." unique_id=368578179 instance=ExtResource("7_1jxqw")]
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

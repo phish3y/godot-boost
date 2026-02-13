@@ -12,6 +12,8 @@ extends RigidBody3D
 @onready var booster_particles: GPUParticles3D = $BoosterParticles
 @onready var booster_particles_left: GPUParticles3D = $BoosterParticlesLeft
 @onready var booster_particles_right: GPUParticles3D = $BoosterParticlesRight
+@onready var lose_particles: GPUParticles3D = $LoseParticles
+@onready var win_particles: GPUParticles3D = $WinParticles
 
 var is_transitioning: bool = false
 
@@ -51,6 +53,9 @@ func complete_level(next_level_file: String) -> void:
 	set_process(false)
 	
 	win_audio.play()
+	win_particles.emitting = true
+	
+	cleanup_rocket()
 	
 	var tween = create_tween()
 	tween.tween_interval(1.5)
@@ -61,7 +66,16 @@ func crash_sequence() -> void:
 	set_process(false)
 	
 	lose_audio.play()
+	lose_particles.emitting = true
+
+	cleanup_rocket()
 	
 	var tween = create_tween()
 	tween.tween_interval(2.5)
 	tween.tween_callback(get_tree().reload_current_scene)
+	
+func cleanup_rocket() -> void:
+	booster_particles.emitting = false
+	booster_particles_left.emitting = false
+	booster_particles_right.emitting = false
+	rocket_audio.stop()
